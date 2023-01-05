@@ -22,4 +22,21 @@ public with sharing class Dota2APIController {
             return responseValues;      
         }  
     }
+    public static List< Object> makeGetApiCall(String baseUrl,String resource,String method){
+        HttpRequest req = new HttpRequest();
+        String endpoint=baseUrl+'/'+resource;
+        String apiKey = GetkeyfromOrg();
+        List< Object> responseValues ;
+        req.setEndpoint(endpoint);
+        req.setMethod(method.toUpperCase());
+        req.setHeader('api_key', apiKey);
+        Http http = new Http();
+        HttpResponse res = http.send(req);
+        if (res.getStatusCode() == 200) {
+            return responseValues = (List< Object>) JSON.deserializeUntyped(res.getBody());   
+        }
+        else{
+            return responseValues;      
+        }  
+    }
 }
